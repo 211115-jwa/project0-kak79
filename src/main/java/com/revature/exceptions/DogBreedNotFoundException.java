@@ -1,5 +1,5 @@
 package com.revature.exceptions;
 
-public class BikeNotFoundException extends Exception {
+public class DogBreedNotFoundException extends Exception {
 	private static final long serialVersionUID = 1L;
 }
