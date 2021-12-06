@@ -9,14 +9,38 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Bike;
 import com.revature.models.Dog;
 import com.revature.utils.ConnectionUtil;
 
 public class DogPostgres implements DogDao {
 	
 	@Override
-	public List<Dog> getAllDogs() throws NoDog.{
+	public List<Dog> getAllDogIds() {
+		String sql = "SELECT id FROM dogs";
+		List<Dog> ids = new ArrayList<>();
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		{
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			
+			while (rs.next()) 
+			{
+				int id = rs.getInt("id");
+				
+				Dog nwDg = new Dog(id);
+				ids.add(nwDg);
+			}
+			} catch (SQLException | IOException b) 
+			{
+				b.printStackTrace();
+			}
+		return ids;
+	}
+	
+	@Override
+	public List<Dog> getAllDogs(){
 		String sql = "SELECT * FROM dogs ORDER BY id;";
 		List<Dog> dogs = new ArrayList<>();
 		
@@ -28,7 +52,7 @@ public class DogPostgres implements DogDao {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("n_me");
-				boolean maleYes = rs.getBoolean("male_yes");
+				String gender = rs.getString("gender");
 				String breed = rs.getString("breed");
 				String size = rs.getString("siz_");
 				boolean akcRegistration = rs.getBoolean("akc_reg");
@@ -40,7 +64,7 @@ public class DogPostgres implements DogDao {
 				String sheddingFrequency = rs.getString("shedd");
 				String trainability = rs.getString("trainability");
 				
-				Dog nwDg = new Dog(id, name, maleYes, breed, size, akcRegistration,
+				Dog nwDg = new Dog(id, name, gender, breed, size, akcRegistration,
 							 age, group, activityLevel, barkingAmount, coatType,
 							sheddingFrequency, trainability);
 				dogs.add(nwDg);

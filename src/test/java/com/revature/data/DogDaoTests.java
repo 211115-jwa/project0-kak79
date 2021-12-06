@@ -1,6 +1,6 @@
 package com.revature.data;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,20 +13,19 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.revature.exceptions.NoDogsFoundException;
 import com.revature.models.Dog;
 import com.revature.utils.ConnectionUtil;
 
 public class DogDaoTests {
 	
-	private DogDao bd = new DogPostgres();
+	private DogDao dd = new DogPostgres();
 	
 	@BeforeEach
 	public void setup() {
-	bd = new DogPostgres();
+	dd = new DogPostgres();
 	}
 	
-	public List<Dog> selectIdFromBikes() {
+	public List<Dog> selectIdFromDogs() {
 		String sql = "SELECT id FROM dogs";
 		List<Dog> ids = new ArrayList<>();
 		
@@ -51,9 +50,20 @@ public class DogDaoTests {
 	}
 	
 	@Test
-	public void getNoDogs() throws NoDogsFoundException 
-	{
-		assertThrows(NoDogsFoundException.class, () -> 
-			bd.getAllDogs(), "Expected getAllDogs to have Dogs");
+	public void getAllDogs() {
+		List<Dog> ids = new ArrayList<>();
+		ids = selectIdFromDogs();
+		List<Dog> expected = ids;
+		List<Dog> actual = dd.getAllDogIds();
+		assertEquals(expected, actual);
 	}
+	
+	
+	
+//	@Test
+//	public void getNoDogs() throws NoDogsFoundException 
+//	{
+//		assertThrows(NoDogsFoundException.class, () -> 
+//			bd.getAllDogs(), "Expected getAllDogs to have Dogs");
+//	}
 }
