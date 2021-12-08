@@ -1,12 +1,8 @@
 package com.revature.data;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,49 +10,112 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.revature.models.Dog;
-import com.revature.utils.ConnectionUtil;
 
-public class DogDaoTests {
-	
+public class DogDaoTests 
+{
+	TestUtils tu = new TestUtils();
 	private DogDao dd = new DogPostgres();
 	
 	@BeforeEach
-	public void setup() {
+	public void setup() 
+	{
 	dd = new DogPostgres();
 	}
 	
-	public List<Dog> selectIdFromDogs() {
-		String sql = "SELECT id FROM dogs";
-		List<Dog> ids = new ArrayList<>();
-		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
-		{
-			Statement s = con.createStatement();
-			ResultSet rs = s.executeQuery(sql);
-			
-			
-			while (rs.next()) 
-			{
-				int id = rs.getInt("id");
-				
-				Dog nwDg = new Dog(id);
-				ids.add(nwDg);
-			}
-			} catch (SQLException | IOException b) 
-			{
-				b.printStackTrace();
-			}
-		return ids;
+	@Test
+	public void getAllNotNull() 
+	{
+		List<Dog> actual = dd.getAllDogs();
+		assertNotEquals(null, actual);
 	}
+
+
+  	@Test
+  	public void getAllDogs() 
+  	{
+		List<Dog> dogList = new ArrayList<>();
+		dogList = tu.selectAllDogs();
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogs();
+  		assertEquals(expected, actual);
+ 	}
+  	
+  	@Test
+  	public void getAllGirlDogs()
+  	{
+		List<Dog> dogList = new ArrayList<>();
+		String girlDogs = "f";
+		dogList = tu.selectAllDogsWhereGenderIs(girlDogs);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereGenderIs(girlDogs);
+  		assertEquals(expected, actual);
+  	}
+ 
+ 	@Test
+  	public void getAllBoyDogs()
+  	{
+		List<Dog> dogList = new ArrayList<>();
+		String boyDogs = "m";
+		dogList = tu.selectAllDogsWhereGenderIs(boyDogs);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereGenderIs(boyDogs);
+  		assertEquals(expected, actual);
+  	}
+ 	
+ 	@Test
+ 	public void getAllXSDogs()
+ 	{
+		List<Dog> dogList = new ArrayList<>();
+		String dogSize = "XS";
+		dogList = tu.getAllDogsWhereSizeIs(dogSize);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereSizeIs(dogSize);
+  		assertEquals(expected, actual);
+ 	}
 	
 	@Test
-	public void getAllDogs() {
-		List<Dog> ids = new ArrayList<>();
-		ids = selectIdFromDogs();
-		List<Dog> expected = ids;
-		List<Dog> actual = dd.getAllDogIds();
-		assertEquals(expected, actual);
-	}
+ 	public void getAllSDogs()
+ 	{
+		List<Dog> dogList = new ArrayList<>();
+		String dogSize = "S";
+		dogList = tu.getAllDogsWhereSizeIs(dogSize);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereSizeIs(dogSize);
+  		assertEquals(expected, actual);
+ 	}
+	
+	@Test
+ 	public void getAllMDogs()
+ 	{
+		List<Dog> dogList = new ArrayList<>();
+		String dogSize = "M";
+		dogList = tu.getAllDogsWhereSizeIs(dogSize);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereSizeIs(dogSize);
+  		assertEquals(expected, actual);
+ 	}
+	
+	@Test
+ 	public void getAllLDogs()
+ 	{
+		List<Dog> dogList = new ArrayList<>();
+		String dogSize = "L";
+		dogList = tu.getAllDogsWhereSizeIs(dogSize);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereSizeIs(dogSize);
+  		assertEquals(expected, actual);
+ 	}
+	
+	@Test
+ 	public void getAllXLDogs()
+ 	{
+		List<Dog> dogList = new ArrayList<>();
+		String dogSize = "XL";
+		dogList = tu.getAllDogsWhereSizeIs(dogSize);
+		List<Dog> expected = dogList;
+  		List<Dog> actual = dd.getAllDogsWhereSizeIs(dogSize);
+  		assertEquals(expected, actual);
+ 	}
 	
 	
 	

@@ -7,61 +7,37 @@ public class Dog {
 	private String name;
 	private String gender;
 	private String breed;
-	private String size;
-	private boolean akcRegistration;
+	private boolean akcReg;
 	private int age;
+	private boolean fixed;
+	private String size;
 	private String group;
-	private String activityLevel;
-	private String barkingAmount;
+	private String activityLvl;
+	private String barkingAmt;
 	private String coatType;
-	private String sheddingFrequency;
+	private String coatLength;
+	private String shedding;
 	private String trainability;
 	
-	public Dog(int id, String name, String gender, String breed, String size,
-			boolean akcRegistration, int age, String group, String activityLevel, 
-			String barkingAmount, String coatType, String sheddingFrequency,
+	public Dog(int id, String name, String gender, String breed, boolean akcReg, int age, boolean fixed, String size,
+			String group, String activityLvl, String barkingAmt, String coatType, String coatLength, String shedding,
 			String trainability) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
 		this.breed = breed;
-		this.size = size;
-		this.akcRegistration = akcRegistration;
+		this.akcReg = akcReg;
 		this.age = age;
-		this.group = group;
-		this.activityLevel = activityLevel;
-		this.barkingAmount = barkingAmount;
-		this.coatType = coatType;
-		this.sheddingFrequency = sheddingFrequency;
-		this.trainability = trainability;
-	}
-
-	public Dog(String name, String gender, String breed, String size, boolean akcRegistration, int age,
-			String group, String activityLevel, String barkingAmount, String coatType, String sheddingFrequency,
-			String trainability) {
-		super();
-		this.name = name;
-		this.gender = gender;
-		this.breed = breed;
+		this.fixed = fixed;
 		this.size = size;
-		this.akcRegistration = akcRegistration;
-		this.age = age;
 		this.group = group;
-		this.activityLevel = activityLevel;
-		this.barkingAmount = barkingAmount;
+		this.activityLvl = activityLvl;
+		this.barkingAmt = barkingAmt;
 		this.coatType = coatType;
-		this.sheddingFrequency = sheddingFrequency;
+		this.coatLength = coatLength;
+		this.shedding = shedding;
 		this.trainability = trainability;
-	}
-
-	public Dog(int id) {
-		super();
-		this.id = id;
-	}
-
-	public Dog() {
-		super();
 	}
 
 	public int getId() {
@@ -96,28 +72,36 @@ public class Dog {
 		this.breed = breed;
 	}
 
+	public boolean isAkcReg() {
+		return akcReg;
+	}
+
+	public void setAkcReg(boolean akcReg) {
+		this.akcReg = akcReg;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public boolean isFixed() {
+		return fixed;
+	}
+
+	public void setFixed(boolean fixed) {
+		this.fixed = fixed;
+	}
+
 	public String getSize() {
 		return size;
 	}
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	public boolean isAkcRegistration() {
-		return akcRegistration;
-	}
-
-	public void setAkcRegistration(boolean akcRegistration) {
-		this.akcRegistration = akcRegistration;
-	}
-
-	public double getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
 	}
 
 	public String getGroup() {
@@ -128,20 +112,20 @@ public class Dog {
 		this.group = group;
 	}
 
-	public String getActivityLevel() {
-		return activityLevel;
+	public String getActivityLvl() {
+		return activityLvl;
 	}
 
-	public void setActivityLevel(String activityLevel) {
-		this.activityLevel = activityLevel;
+	public void setActivityLvl(String activityLvl) {
+		this.activityLvl = activityLvl;
 	}
 
-	public String getBarkingAmount() {
-		return barkingAmount;
+	public String getBarkingAmt() {
+		return barkingAmt;
 	}
 
-	public void setBarkingAmount(String barkingAmount) {
-		this.barkingAmount = barkingAmount;
+	public void setBarkingAmt(String barkingAmt) {
+		this.barkingAmt = barkingAmt;
 	}
 
 	public String getCoatType() {
@@ -152,12 +136,20 @@ public class Dog {
 		this.coatType = coatType;
 	}
 
-	public String getSheddingFrequency() {
-		return sheddingFrequency;
+	public String getCoatLength() {
+		return coatLength;
 	}
 
-	public void setSheddingFrequency(String sheddingFrequency) {
-		this.sheddingFrequency = sheddingFrequency;
+	public void setCoatLength(String coatLength) {
+		this.coatLength = coatLength;
+	}
+
+	public String getShedding() {
+		return shedding;
+	}
+
+	public void setShedding(String shedding) {
+		this.shedding = shedding;
 	}
 
 	public String getTrainability() {
@@ -170,16 +162,16 @@ public class Dog {
 
 	@Override
 	public String toString() {
-		return "Dog [id=" + id + ", name=" + name + ", gender=" + gender + ", breed=" + breed + ", size=" + size
-				+ ", akcRegistration=" + akcRegistration + ", age=" + age + ", group=" + group + ", activityLevel="
-				+ activityLevel + ", barkingAmount=" + barkingAmount + ", coatType=" + coatType + ", sheddingFrequency="
-				+ sheddingFrequency + ", trainability=" + trainability + "]";
+		return "Dog [id=" + id + ", name=" + name + ", gender=" + gender + ", breed=" + breed + ", akcReg=" + akcReg
+				+ ", age=" + age + ", fixed=" + fixed + ", size=" + size + ", group=" + group + ", activityLvl="
+				+ activityLvl + ", barkingAmt=" + barkingAmt + ", coatType=" + coatType + ", coatLength=" + coatLength
+				+ ", shedding=" + shedding + ", trainability=" + trainability + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(activityLevel, age, akcRegistration, barkingAmount, breed, coatType, group,
-				id, gender, name, sheddingFrequency, size, trainability);
+		return Objects.hash(activityLvl, age, akcReg, barkingAmt, breed, coatLength, coatType, fixed, gender, group, id,
+				name, shedding, size, trainability);
 	}
 
 	@Override
@@ -191,16 +183,11 @@ public class Dog {
 		if (getClass() != obj.getClass())
 			return false;
 		Dog other = (Dog) obj;
-		return Objects.equals(activityLevel, other.activityLevel) && age == other.age
-				&& akcRegistration == other.akcRegistration && Objects.equals(barkingAmount, other.barkingAmount)
-				&& Objects.equals(breed, other.breed)
-				&& Objects.equals(coatType, other.coatType) && Objects.equals(group, other.group) && id == other.id
-				&& Objects.equals(gender, other.gender) && Objects.equals(name, other.name)
-				&& Objects.equals(sheddingFrequency, other.sheddingFrequency) && Objects.equals(size, other.size)
-				&& Objects.equals(trainability, other.trainability);
+		return Objects.equals(activityLvl, other.activityLvl) && age == other.age && akcReg == other.akcReg
+				&& Objects.equals(barkingAmt, other.barkingAmt) && Objects.equals(breed, other.breed)
+				&& Objects.equals(coatLength, other.coatLength) && Objects.equals(coatType, other.coatType)
+				&& fixed == other.fixed && Objects.equals(gender, other.gender) && Objects.equals(group, other.group)
+				&& id == other.id && Objects.equals(name, other.name) && Objects.equals(shedding, other.shedding)
+				&& Objects.equals(size, other.size) && Objects.equals(trainability, other.trainability);
 	}
-
-	
-	
-
 }
