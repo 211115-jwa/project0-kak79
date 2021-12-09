@@ -40,6 +40,27 @@ public class Dog {
 		this.trainability = trainability;
 	}
 
+	public Dog(String name, String gender, String breed, boolean akcReg, int age, boolean fixed) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.breed = breed;
+		this.akcReg = akcReg;
+		this.age = age;
+		this.fixed = fixed;
+	}
+	
+	public Dog(int id, String name, String gender, String breed, boolean akcReg, int age, boolean fixed) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.breed = breed;
+		this.akcReg = akcReg;
+		this.age = age;
+		this.fixed = fixed;
+	}
+
 	public int getId() {
 		return id;
 	}

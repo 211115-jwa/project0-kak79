@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.data.DogPostgres;
+import com.revature.exceptions.invalidEntryException;
 import com.revature.models.Dog;
 
 public class DogService {
@@ -18,12 +19,26 @@ public class DogService {
 		
 	}
 
-	public List<Dog> getAllDogsWhereGenderIs(String dogGender) {
-		
+	public List<Dog> getAllDogsWhereGenderIs(String dogGender) throws invalidEntryException {
 		List<Dog> dog = new ArrayList<>();
-		dog = dp.getAllDogsWhereGenderIs(dogGender);
+		if (dogGender != "f" || dogGender != "m") 
+		{
+			try  
+			{
+				throw new invalidEntryException("Your Entry Must Be m or f!");
+			}
+			catch (invalidEntryException i)
+			{	
+				i.printStackTrace();
+			}
+		}
+		else 
+		{
+			dog = dp.getAllDogsWhereGenderIs(dogGender);
+			return dog;		
+		}
 		return dog;
-		
+
 	}
 
 	public List<Dog> getAllDogsWhereSizeIs(String dogSize) {

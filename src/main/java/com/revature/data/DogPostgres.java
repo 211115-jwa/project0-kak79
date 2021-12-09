@@ -214,44 +214,39 @@ public class DogPostgres implements DogDao
 	}
 	
 	@Override
-	public int addADog(Dog dog) {
+	public int createADog(Dog dog) {
 		int newId = -1;
-//		String sql = "INSERT INTO dog (n_me, gender, breed, siz_, akc_reg"
-//				+ " ag_, gr_up, activity_lev, bark_amt, coat_type, shedd"
-//				+ " trainability)"
-//				+ " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) RETURNING id;";
-//		
-//		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
-//		{
-//			PreparedStatement ps = con.prepareStatement(sql);
-//
-//			ps.setString(1, dog.getName());
-//			ps.setString(2, dog.getGender());
-//			ps.setString(3, dog.getBreed());
-//			ps.setString(4, dog.getSize());
-//			ps.setBoolean(5, dog.isAkcRegistration());
-//			ps.setInt(6, dog.getAge());
-//			ps.setString(7, dog.getGroup());
-//			ps.setString(8, dog.getActivityLevel());
-//			ps.setString(9, dog.getBarkingAmount());
-//			ps.setString(10, dog.getCoatType());
-//			ps.setString(11, dog.getSheddingFrequency());
-//			ps.setString(12, dog.getTrainability());
-//
-//			ResultSet rs = ps.executeQuery();
-//
-//			if (rs.next()) 
-//			{
-//				int id = rs.getInt("id");
-//				
-//				newId = id;
-//			}
-//		} 
-//		catch (SQLException | IOException b) 
-//		{
-//			b.printStackTrace();
-//		}
-//		
+		String sql = "INSERT INTO dog "
+				+ " (n_me, gender, breed, akc_reg, ag_, fixed)"
+				+ " VALUES"
+				+ " (?, ?, ?, ?, ?, ?)"
+				+ " RETURNING id;";
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		{
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, dog.getName());
+			ps.setString(2, dog.getGender());
+			ps.setString(3, dog.getBreed());
+			ps.setBoolean(4, dog.isAkcReg());
+			ps.setInt(5, dog.getAge());
+			ps.setBoolean(6, dog.isFixed());
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) 
+			{
+				int id = rs.getInt("id");
+				
+				newId = id;
+			}
+		} 
+		catch (SQLException | IOException b) 
+		{
+			b.printStackTrace();
+		}
+		
 		return newId;
 	}
 

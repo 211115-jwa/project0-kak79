@@ -118,6 +118,18 @@ public class DogDaoTests
  	}
 	
 	
+	@Test
+	public void createADog()
+	{
+		Dog testDog = new Dog("TestName", "f" , "TestBreed" , false, 0, false);
+		int expected = 0;
+  		int actual = dd.createADog(testDog);
+  		assertNotEquals(expected, actual);
+	}
+	
+	
+//	String name, String gender, String breed, boolean akcReg, int age, boolean fixed
+	
 	
 //	@Test
 //	public void getNoDogs() throws NoDogsFoundException 
