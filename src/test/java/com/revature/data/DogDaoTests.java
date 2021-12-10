@@ -122,7 +122,7 @@ public class DogDaoTests
 	public void createADog()
 	{
 		Dog testDog = new Dog("TestName", "f" , "TestBreed" , false, 0, false);
-		int expected = 0;
+		int expected = -1;
   		int actual = dd.createADog(testDog);
   		assertNotEquals(expected, actual);
 	}
