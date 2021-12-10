@@ -8,6 +8,7 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.exceptions.invalidEntryException;
 import com.revature.models.Dog;
 import com.revature.services.DogService;
 
@@ -31,15 +32,23 @@ public class App {
 					
 					if (dogGender != null && !"".equals(dogGender)) 
 					{
-						List<Dog> dog = new ArrayList<>();
-						dog = ds.getAllDogsWhereGenderIs(dogGender);
-						String sDg = "";
-						
-						for (Dog dg : dog) 
+						try  
 						{
-							sDg += "<p>" + dg + "</p>";
+							List<Dog> dog = new ArrayList<>();
+							dog = ds.getAllDogsWhereGenderIs(dogGender);
+							String sDg = "";
+							
+							for (Dog dg : dog) 
+							{
+								sDg += "<p>" + dg + "</p>";
+							}
+							ctx.result(sDg);
 						}
-						ctx.result(sDg);
+						catch (invalidEntryException i)
+						{	
+							i.printStackTrace();
+						}
+						
 					}
 					else if (dogSize != null && !"".equals(dogSize))
 					{

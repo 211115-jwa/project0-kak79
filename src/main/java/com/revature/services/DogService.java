@@ -23,22 +23,14 @@ public class DogService {
 		List<Dog> dog = new ArrayList<>();
 		if (dogGender != "f" || dogGender != "m") 
 		{
-			try  
-			{
-				throw new invalidEntryException("Your Entry Must Be m or f!");
-			}
-			catch (invalidEntryException i)
-			{	
-				i.printStackTrace();
-			}
+			throw new invalidEntryException(dogGender + " is not m or f! Invalid Entry!");
 		}
 		else 
 		{
 			dog = dp.getAllDogsWhereGenderIs(dogGender);
 			return dog;		
 		}
-		return dog;
-
+		
 	}
 
 	public List<Dog> getAllDogsWhereSizeIs(String dogSize) {
