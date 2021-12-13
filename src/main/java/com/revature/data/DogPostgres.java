@@ -1,6 +1,5 @@
 package com.revature.data;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import com.revature.utils.ConnectionUtil;
 public class DogPostgres implements DogDao 
 {
 	
-
+	private ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 	
 	@Override
 	public List<Dog> getAllDogs()
@@ -42,7 +41,7 @@ public class DogPostgres implements DogDao
 				+ " ORDER BY dog.id;";
 		List<Dog> dogs = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
@@ -72,9 +71,9 @@ public class DogPostgres implements DogDao
 				dogs.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		return dogs;
 	}
@@ -106,7 +105,7 @@ public class DogPostgres implements DogDao
 				
 		List<Dog> dogs = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -138,9 +137,9 @@ public class DogPostgres implements DogDao
 				dogs.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		return dogs;
 	}
@@ -172,7 +171,7 @@ public class DogPostgres implements DogDao
 				
 		List<Dog> dogs = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -205,9 +204,9 @@ public class DogPostgres implements DogDao
 				dogs.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		
 		return dogs;
@@ -234,7 +233,7 @@ public class DogPostgres implements DogDao
 				+ " (?, ?, ?, ?, ?, ?)"
 				+ " RETURNING id;";
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -254,9 +253,9 @@ public class DogPostgres implements DogDao
 				newId = id;
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		
 		return newId;

@@ -1,6 +1,5 @@
 package com.revature.data;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ import com.revature.utils.ConnectionUtil;
 
 public class TestUtils {
 
-
+	private ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 	
 	public List<Dog> selectAllDogs()
 	{
@@ -40,7 +39,7 @@ public class TestUtils {
 				+ " ORDER BY dog.id;";
 		List<Dog> dogList = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
@@ -70,9 +69,9 @@ public class TestUtils {
 				dogList.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		return dogList;
 	}
@@ -103,7 +102,7 @@ public class TestUtils {
 		
 		List<Dog> dogList = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -135,9 +134,9 @@ public class TestUtils {
 				dogList.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		return dogList;
 	}
@@ -168,7 +167,7 @@ public class TestUtils {
 				
 		List<Dog> dogList = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
+		try (Connection con = cu.getConnection()) 
 		{
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -201,50 +200,15 @@ public class TestUtils {
 				dogList.add(nwDg);
 			}
 		} 
-		catch (SQLException | IOException b) 
+		catch (SQLException d) 
 		{
-			b.printStackTrace();
+			d.printStackTrace();
 		}
 		
 		return dogList;
 	}
 	
-	public int insertADog(Dog dog) {
-		int newId = -1;
-		String sql = "INSERT INTO dog "
-				+ " (n_me, gender, breed, akc_reg, ag_, fixed)"
-				+ " VALUES"
-				+ " (?, ?, ?, ?, ?, ?)"
-				+ " RETURNING id;";
-		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) 
-		{
-			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, dog.getName());
-			ps.setString(2, dog.getGender());
-			ps.setString(3, dog.getBreed());
-			ps.setBoolean(4, dog.isAkcReg());
-			ps.setInt(5, dog.getAge());
-			ps.setBoolean(6, dog.isFixed());
-
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) 
-			{
-				int id = rs.getInt("id");
-				
-				newId = id;
-			}
-		} 
-		catch (SQLException | IOException b) 
-		{
-			b.printStackTrace();
-		}
-		
-		return newId;
-	}
-	
 	
 	
 	
