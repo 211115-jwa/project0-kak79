@@ -6,14 +6,21 @@ import com.revature.models.Dog;
 
 public interface DogDao {
 	
-	List<Dog> getAllDogs(); //query DB and return a list of all Bikes in the DB
+	List<Dog> getAllDogs(); //query DB and return a list of all Dogs in the DB
 	
 	List<Dog> getAllDogsWhereGenderIs(String dogGender);
 	
 	List<Dog> getAllDogsWhereSizeIs(String dogSize);
 	
-	int createADog(Dog dog); //given the paremeter of a Bike object, return a Bike id int
+	int getId(Dog dog);
+	
+	Dog getOneById(int dogId);
+	
+	int createADog(Dog dog); //make a Dog
 
+	Dog editADog(Dog dog); // update
+	
+	boolean deleteADog(int dogId);//delete
 	
 
 }
