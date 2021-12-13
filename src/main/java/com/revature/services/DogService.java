@@ -1,46 +1,10 @@
 package com.revature.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.revature.data.DogPostgres;
-import com.revature.exceptions.invalidEntryException;
 import com.revature.models.Dog;
 
-public class DogService {
+public interface DogService {
 	
-	DogPostgres dp = new DogPostgres();
-
-	public List<Dog> getAllDogs() {
-		
-		List<Dog> dog = new ArrayList<>();
-		dog = dp.getAllDogs();
-		return dog;
-		
-	}
-
-	public List<Dog> getAllDogsWhereGenderIs(String dogGender) throws invalidEntryException {
-		List<Dog> dog = new ArrayList<>();
-		if (dogGender != "f" || dogGender != "m") 
-		{
-			throw new invalidEntryException(dogGender + " is not m or f! Invalid Entry!");
-		}
-		else 
-		{
-			dog = dp.getAllDogsWhereGenderIs(dogGender);
-			return dog;		
-		}
-		
-	}
-
-	public List<Dog> getAllDogsWhereSizeIs(String dogSize) {
-		
-		List<Dog> dog = new ArrayList<>();
-		dog = dp.getAllDogsWhereSizeIs(dogSize);
-		return dog;
-		
-	}
-	
-	
-
+	int addNewDog(Dog dog);
+	Dog editDog(Dog dog);
+	Dog getDogById(int dogID);
 }
