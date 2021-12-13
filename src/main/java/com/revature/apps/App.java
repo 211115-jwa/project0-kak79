@@ -8,23 +8,32 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.exceptions.invalidEntryException;
+import com.revature.data.DogPostgres;
 import com.revature.models.Dog;
 import com.revature.services.DogService;
 
 import io.javalin.Javalin;
 
-public class App {
+public class App 
+{
+	
+	public static DogService ds;
+	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		
-		DogService ds = new DogService();
+		
+		DogPostgres dp = new DogPostgres();
 
 		Javalin app = Javalin.create().start(8080);
 		
-		app.routes(() -> {
-			path("/dogs", ()-> {
-				get(ctx -> {
+		app.routes(() -> 
+		{
+			path("/dogs", ()-> 
+			{
+				get(ctx -> 
+				{
 					
 					
 					String dogGender = ctx.queryParam("gender");
@@ -32,62 +41,115 @@ public class App {
 					
 					if (dogGender != null && !"".equals(dogGender)) 
 					{
-						try  
+						if (dogGender != "f" || dogGender != "m") 
+						{
+							ctx.result("Dog Gender Must be Either m OR f!! \n https://http.cat/400.jpg");
+							
+						}
+						else 
 						{
 							List<Dog> dog = new ArrayList<>();
-							dog = ds.getAllDogsWhereGenderIs(dogGender);
-							String sDg = "";
-							
+							dog = dp.getAllDogsWhereGenderIs(dogGender);
+							String dogList = "";
+								
 							for (Dog dg : dog) 
 							{
-								sDg += "<p>" + dg + "</p>";
+								dogList += "<p>" + dg + "</p>";
 							}
-							ctx.result(sDg);
-						}
-						catch (invalidEntryException i)
-						{	
-							i.printStackTrace();
-						}
-						
+							ctx.result(dogList);	
+						}			
 					}
 					else if (dogSize != null && !"".equals(dogSize))
 					{
-						List<Dog> dog = new ArrayList<>();
-						dog = ds.getAllDogsWhereSizeIs(dogSize);
-						String sDg = "";
-						
-						for (Dog dg : dog) 
+						if (dogGender != "XS" || dogGender != "S" || dogGender != "M" || dogGender != "L" || dogGender != "XL") 
 						{
-							sDg += "<p>" + dg + "</p>";
+							ctx.result("Dog Gender Must be Either XS, S, M, L or XL!! \n https://http.cat/400");
 						}
-						ctx.result(sDg);						
+						else 
+						{
+							List<Dog> dog = new ArrayList<>();
+							dog = dp.getAllDogsWhereSizeIs(dogSize);
+							String dogList = "";
+							
+							for (Dog dg : dog) 
+							{
+								dogList += "<p>" + dg + "</p>";
+							}
+							ctx.result(dogList);
+						}
 					}
 					else 
 					{
 						List<Dog> dog = new ArrayList<>();
-						dog = ds.getAllDogs();
-						String sDg = "";
+						dog = dp.getAllDogs();
+						String dogList = "";
 						
-						for (Dog dg : dog) {
-							sDg += "<p>" + dg + "</p>";
+						for (Dog dg : dog) 
+						{
+							dogList += "<p>" + dg + "</p>";
 						}
-						ctx.result(sDg);
+						ctx.result(dogList);
 					}
 				});
 				
-				post(ctx -> {
-					ctx.result("POST to /dog successful");
+				post(ctx -> 
+				{
+					Dog newDog = ctx.bodyAsClass(Dog.class);
+					if (newDog !=null) 
+					{
+						ds.addNewDog(newDog);
+						ctx.result("https://http.cat/201");
+					} 
+					else 
+					{
+						ctx.result("https://http.cat/400");
+					}
 				});
 
-				path("/{id}", ()-> {
-					get(ctx -> {
-						String id = ctx.pathParam("id");
-						ctx.result("GET to /dog/"+ id +" successful");
+				path("/{id}", ()-> 
+				{
+					get(ctx -> 
+					{
+						try 
+						{
+							int dogID = Integer.parseInt(ctx.pathParam("id")); 
+							Dog dog = ds.getDogById(dogID);
+							if (dog != null)
+								ctx.json(dog);
+							else
+								ctx.result("https://http.cat/404");
+						} 
+						catch (NumberFormatException e) 
+						{
+							ctx.result("Dog ID must be a numeric value \n https://http.cat/400");
+						}
+
 					});
 					
-					put(ctx -> {
-						String id = ctx.pathParam("id");
-						ctx.result("PUT to /dog/"+ id +" successful");
+					put(ctx -> 
+					{
+						try 
+						{
+							int dogID = Integer.parseInt(ctx.pathParam("id"));
+							Dog dogToEdit = ctx.bodyAsClass(Dog.class);
+							if (dogToEdit != null && dogToEdit.getId() == dogID) 
+							{
+								dogToEdit = ds.editDog(dogToEdit);
+								if (dogToEdit != null)
+									ctx.json(dogToEdit);
+								else
+									ctx.result("https://http.cat/404");
+							} 
+							else 
+							{
+								ctx.result("https://http.cat/409");
+							}
+						}
+						catch (NumberFormatException e) 
+						{
+							ctx.result("Dog ID must be a numeric value \n https://http.cat/400");
+						}
+
 					});
 
 				});
