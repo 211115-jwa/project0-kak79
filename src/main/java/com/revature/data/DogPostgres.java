@@ -214,6 +214,18 @@ public class DogPostgres implements DogDao
 	}
 	
 	@Override
+	public int getId(Dog dog) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Dog getOneById(int dogId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public int createADog(Dog dog) {
 		int newId = -1;
 		String sql = "INSERT INTO dog "
@@ -248,6 +260,18 @@ public class DogPostgres implements DogDao
 		}
 		
 		return newId;
+	}
+
+	@Override
+	public Dog editADog(Dog dog) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteADog(int dogId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
