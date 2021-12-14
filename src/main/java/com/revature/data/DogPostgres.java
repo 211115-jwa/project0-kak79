@@ -214,12 +214,6 @@ public class DogPostgres implements DogDao
 		
 		return dogs;
 	}
-	
-	@Override
-	public int getId(Dog dog) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public Dog getOneById(int dogId) {
@@ -231,7 +225,7 @@ public class DogPostgres implements DogDao
 	public int createADog(Dog dog) {
 		int newId = -1;
 		String sql = "INSERT INTO dog "
-				+ " (n_me, gender, breed, akc_reg, ag_, fixed)"
+				+ " (n_me, gender, breed_id, akc_reg, ag_, fixed)"
 				+ " VALUES"
 				+ " (?, ?, ?, ?, ?, ?)"
 				+ " RETURNING id;";

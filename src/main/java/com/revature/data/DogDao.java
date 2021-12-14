@@ -11,9 +11,7 @@ public interface DogDao {
 	List<Dog> getAllDogsWhereGenderIs(String dogGender);
 	
 	List<Dog> getAllDogsWhereSizeIs(String dogSize);
-	
-	int getId(Dog dog);
-	
+		
 	Dog getOneById(int dogId);
 	
 	int createADog(Dog dog); //make a Dog

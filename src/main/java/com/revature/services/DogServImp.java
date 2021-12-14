@@ -43,12 +43,6 @@ public class DogServImp implements DogService {
 	}
 
 	@Override
-	public int getId(Dog dog) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Dog getOneById(int dogId) {
 		// TODO Auto-generated method stub
 		return null;
