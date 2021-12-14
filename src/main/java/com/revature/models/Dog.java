@@ -24,6 +24,10 @@ public class Dog {
 		this.breed = breed;
 	}
 
+	public Dog() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}
