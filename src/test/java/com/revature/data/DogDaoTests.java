@@ -117,6 +117,17 @@ public class DogDaoTests
   		assertEquals(expected, actual);
  	}
 	
+	@Test
+	public void getADogById()
+	{
+		Dog testDog = new Dog();
+		int tstDg = 3;
+		testDog = tu.selectOneById(tstDg);
+		Dog expected = testDog;
+		Dog actual = dd.getOneById(tstDg);
+		assertEquals(expected, actual);
+	}
+	
 	
 //	@Test
 //	public void createADog()
