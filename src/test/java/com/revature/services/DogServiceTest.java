@@ -1,7 +1,6 @@
 package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -46,11 +45,10 @@ public class DogServiceTest {
 	@Test
 	public void getAllDogs() {
 		
+		when(dd.getAllDogs()).thenReturn(mockDogs);
+		List<Dog> actual = ds.getAllDogs();
 		
-		List<Dog> expected = mockDogs;
-		List<Dog> actual = when(ds.getAllDogs()).thenReturn(mockDogs);
-		
-		assertEquals(expected, actual);
+		assertEquals(mockDogs, actual);
 		
 	}
 
