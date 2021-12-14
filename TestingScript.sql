@@ -26,6 +26,28 @@ SELECT
 	FROM dog 
 	FULL OUTER JOIN breed 
     ON breed.id = dog.breed_id
+    WHERE dog.id = 3
+    
+    
+SELECT
+	dog.id,
+	dog.n_me AS dog_name,
+	dog.gender,
+	breed.breed_name AS breed,
+	dog.akc_reg,
+	dog.ag_ AS dog_age,
+	dog.fixed,
+	breed.breed_size,
+	breed.breed_group,
+	breed.active_lvl,
+	breed.bark_amt,
+	breed.coat_tp,
+	breed.coat_lngth,
+	breed.shedd,
+	breed.train
+	FROM dog 
+	FULL OUTER JOIN breed 
+    ON breed.id = dog.breed_id
     WHERE breed_size = 'XS'
     order by id
 
