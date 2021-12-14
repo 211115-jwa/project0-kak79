@@ -23,6 +23,16 @@ public class Dog {
 		this.fixed = fixed;
 		this.breed = breed;
 	}
+	
+	public Dog(String name, String gender, boolean akcReg, int age, boolean fixed, Breed breed) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.akcReg = akcReg;
+		this.age = age;
+		this.fixed = fixed;
+		this.breed = breed;
+	}
 
 	public Dog() {
 		super();

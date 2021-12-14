@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.revature.models.Breed;
 import com.revature.models.Dog;
 
 public class DogDaoTests 
@@ -129,14 +130,15 @@ public class DogDaoTests
 	}
 	
 	
-//	@Test
-//	public void createADog()
-//	{
-//		Dog testDog = new Dog("TestName", "f" , "TestBreed" , false, 0, false);
-//		int expected = -1;
-//  		int actual = dd.createADog(testDog);
-//  		assertNotEquals(expected, actual);
-//	}
+	@Test
+	public void createADog()
+	{
+		Breed akita = new Breed(1);
+		Dog testDog = new Dog("TestName", "f" , false, 0, false, akita);
+		int expected = -1;
+  		int actual = dd.createADog(testDog);
+  		assertNotEquals(expected, actual);
+	}
 	
 	
 //	String name, String gender, String breed, boolean akcReg, int age, boolean fixed

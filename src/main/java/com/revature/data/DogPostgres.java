@@ -283,7 +283,7 @@ public class DogPostgres implements DogDao
 	
 	@Override
 	public int createADog(Dog dog) {
-		int newId = -1;
+		int id = -1;
 		String sql = "INSERT INTO dog "
 				+ " (n_me, gender, breed_id, akc_reg, ag_, fixed)"
 				+ " VALUES"
@@ -292,10 +292,12 @@ public class DogPostgres implements DogDao
 		
 		try (Connection con = cu.getConnection()) 
 		{
+			con.setAutoCommit(false);
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, dog.getName());
 			ps.setString(2, dog.getGender());
+			ps.setInt(3,dog.getBreed().getId());
 			ps.setBoolean(4, dog.isAkcReg());
 			ps.setInt(5, dog.getAge());
 			ps.setBoolean(6, dog.isFixed());
@@ -303,18 +305,22 @@ public class DogPostgres implements DogDao
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) 
+			{ 
+				id = rs.getInt("id");
+				con.commit();
+			} 
+			else 
 			{
-				int id = rs.getInt("id");
-				
-				newId = id;
+				con.rollback();
 			}
+
 		} 
 		catch (SQLException d) 
 		{
 			d.printStackTrace();
 		}
 		
-		return newId;
+		return id;
 	}
 
 	@Override
