@@ -1,10 +1,26 @@
 package com.revature.services;
 
+import java.util.List;
+
+import com.revature.exceptions.InvalidEntryException;
 import com.revature.models.Dog;
 
 public interface DogService {
 	
-	int addNewDog(Dog dog);
-	Dog editDog(Dog dog);
-	Dog getDogById(int dogID);
+	List<Dog> getAllDogs(); 
+	
+	List<Dog> getAllDogsWhereGenderIs(String dogGender) throws InvalidEntryException;
+	
+	List<Dog> getAllDogsWhereSizeIs(String dogSize);
+	
+	int getId(Dog dog);
+	
+	Dog getOneById(int dogId);
+	
+	int createADog(Dog dog); //make a Dog
+
+	Dog editADog(Dog dog); // update
+	
+	boolean deleteADog(int dogId);//delete
+	
 }

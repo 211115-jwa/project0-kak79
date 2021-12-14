@@ -1,31 +1,6 @@
 
-
-drop table if exists breed;
-drop table if exists dog;
-
-
-create table if not exists dog (
-	id serial unique not null primary key,
-	n_me varchar(50) not null, -- name of dog
-	gender varchar(5) not null, -- m or f
-	breed varchar(50) not null, -- pull list of breeds from AKC
-	akc_reg bool not null, -- true , false 
-	ag_ int not null, -- 0-25
-	fixed bool not null
-);
-INSERT INTO dog 
-( n_me, gender, breed, akc_reg, ag_, fixed)
-VALUES 
-('Goldie', 'f', 'Chihuahua', false, 4, true),
-('Tallia', 'f', 'Alaskan Malamute', false, 6, false),
-('Jill', 'f', 'Bichon Frise', true, 5, true),
-('Tricia', 'f', 'Irish Wolfhound', true, 5, false),
-('Gale', 'm', 'Great Dane',  true, 1, true),
-('Alexa', 'f', 'Bichon Frise', false, 8, false),
-('Benedict', 'm', 'Irish Wolfhound',  false, 3, false),
-('Sergent', 'm', 'Akita', true, 4, true),
-('Elonore', 'f',  'Scottish Terrier',  false, 6, false),
-('Lewie', 'm',  'Chihuahua', false, 1, true);
+drop table if exists dog cascade;
+drop table if exists breed cascade;
 
 
 create table if not exists breed (
@@ -52,6 +27,28 @@ values
 ('Scottish Terrier', 'M', 'Terrier Group', 'Regular Exercise', 'Frequent', 'Wiry', 'Medium', 'Occasional', 'Stubborn');
 
 
+create table if not exists dog (
+	id serial unique not null primary key,
+	n_me varchar(50) not null, -- name of dog
+	gender varchar(5) not null, -- m or f
+	breed_id integer not null references breed, -- pull list of breeds from AKC
+	akc_reg bool not null, -- true , false 
+	ag_ int not null, -- 0-25
+	fixed bool not null
+);
+INSERT INTO dog 
+( n_me, gender, breed_id, akc_reg, ag_, fixed)
+VALUES 
+('Goldie', 'f', 4, false, 4, true),
+('Tallia', 'f', 2, false, 6, false),
+('Jill', 'f', 3, true, 5, true),
+('Tricia', 'f', 6, true, 5, false),
+('Gale', 'm', 5,  true, 1, true),
+('Alexa', 'f', 3, false, 8, false),
+('Benedict', 'm', 6,  false, 3, false),
+('Sergent', 'm', 1, true, 4, true),
+('Elonore', 'f',  7,  false, 6, false),
+('Lewie', 'm',  4, false, 1, true);
 
 
 COMMIT

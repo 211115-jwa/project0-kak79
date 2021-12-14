@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.data.DogPostgres;
+import com.revature.exceptions.InvalidEntryException;
 import com.revature.models.Dog;
+import com.revature.services.DogServImp;
 import com.revature.services.DogService;
 
 import io.javalin.Javalin;
@@ -17,7 +19,7 @@ import io.javalin.Javalin;
 public class App 
 {
 	
-	public static DogService ds;
+	public static DogService ds = new DogServImp();;
 	
 
 	public static void main(String[] args) 
@@ -35,29 +37,35 @@ public class App
 				get(ctx -> 
 				{
 					
-					
 					String dogGender = ctx.queryParam("gender");
 					String dogSize = ctx.queryParam("size");
 					
 					if (dogGender != null && !"".equals(dogGender)) 
 					{
-						if (dogGender != "f" || dogGender != "m") 
+						
+			
+						try 
 						{
-							ctx.result("Dog Gender Must be Either m OR f!! \n https://http.cat/400.jpg");
 							
-						}
-						else 
-						{
-							List<Dog> dog = new ArrayList<>();
-							dog = dp.getAllDogsWhereGenderIs(dogGender);
-							String dogList = "";
+							List<Dog> dog = ds.getAllDogsWhereGenderIs(dogGender);
+							
+								String dogList = "";
 								
-							for (Dog dg : dog) 
-							{
-								dogList += "<p>" + dg + "</p>";
-							}
-							ctx.result(dogList);	
-						}			
+								for (Dog dg : dog) 
+								{
+									dogList += "<p>" + dg + "</p>";
+								}
+								ctx.result(dogList);
+							
+								
+						} 
+						catch (InvalidEntryException e) 
+						{
+							ctx.result("Dog Gender Must be Either m OR f!! \\n https://http.cat/400.jpg");
+						}
+						
+						
+						
 					}
 					else if (dogSize != null && !"".equals(dogSize))
 					{
@@ -81,7 +89,7 @@ public class App
 					else 
 					{
 						List<Dog> dog = new ArrayList<>();
-						dog = dp.getAllDogs();
+						dog = ds.getAllDogs();
 						String dogList = "";
 						
 						for (Dog dg : dog) 
@@ -97,7 +105,7 @@ public class App
 					Dog newDog = ctx.bodyAsClass(Dog.class);
 					if (newDog !=null) 
 					{
-						ds.addNewDog(newDog);
+						ds.createADog(newDog);
 						ctx.result("https://http.cat/201");
 					} 
 					else 
@@ -113,7 +121,7 @@ public class App
 						try 
 						{
 							int dogID = Integer.parseInt(ctx.pathParam("id")); 
-							Dog dog = ds.getDogById(dogID);
+							Dog dog = ds.getOneById(dogID);
 							if (dog != null)
 								ctx.json(dog);
 							else
@@ -134,7 +142,7 @@ public class App
 							Dog dogToEdit = ctx.bodyAsClass(Dog.class);
 							if (dogToEdit != null && dogToEdit.getId() == dogID) 
 							{
-								dogToEdit = ds.editDog(dogToEdit);
+								dogToEdit = ds.editADog(dogToEdit);
 								if (dogToEdit != null)
 									ctx.json(dogToEdit);
 								else

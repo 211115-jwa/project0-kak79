@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.models.Breed;
 import com.revature.models.Dog;
 import com.revature.utils.ConnectionUtil;
 
@@ -21,7 +22,7 @@ public class TestUtils {
 				+ "	dog.id,"
 				+ "	dog.n_me AS dog_name,"
 				+ "	dog.gender,"
-				+ "	dog.breed,"
+				+ "	breed.breed_name AS breed,"
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
@@ -35,7 +36,7 @@ public class TestUtils {
 				+ "	breed.train"
 				+ "	FROM dog"
 				+ "	FULL OUTER JOIN breed"
-				+ " ON breed.breed_name = dog.breed"
+				+ " ON breed.id = dog.breed_id"
 				+ " ORDER BY dog.id;";
 		List<Dog> dogList = new ArrayList<>();
 		
@@ -50,10 +51,10 @@ public class TestUtils {
 				int id = rs.getInt("id");
 				String name = rs.getString("dog_name");
 				String gender = rs.getString("gender");
-				String breed = rs.getString("breed");
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
 				String activityLvl = rs.getString("active_lvl");
@@ -63,9 +64,10 @@ public class TestUtils {
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Dog nwDg = new Dog(id, name, gender, breed, akcRegistration,
-							 age,fixed, size, group, activityLvl, barkingAmt,
-							 coatType, coatLength, shedding, trainability);
+				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+					barkingAmt, coatType, coatLength, shedding, trainability);
+				Dog nwDg = new Dog(id, name, gender, akcRegistration,
+							 age, fixed, breed);
 				dogList.add(nwDg);
 			}
 		} 
@@ -82,7 +84,7 @@ public class TestUtils {
 				+ "	dog.id,"
 				+ "	dog.n_me AS dog_name,"
 				+ "	dog.gender,"
-				+ "	dog.breed,"
+				+ "	breed.breed_name AS breed,"
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
@@ -96,7 +98,7 @@ public class TestUtils {
 				+ "	breed.train"
 				+ "	FROM dog"
 				+ "	FULL OUTER JOIN breed"
-				+ " ON breed.breed_name = dog.breed"
+				+ " ON breed.id = dog.breed_id"
 				+ " WHERE dog.gender = ?"
 				+ " ORDER BY dog.id;";
 		
@@ -115,10 +117,10 @@ public class TestUtils {
 				int id = rs.getInt("id");
 				String name = rs.getString("dog_name");
 				String gender = rs.getString("gender");
-				String breed = rs.getString("breed");
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
 				String activityLvl = rs.getString("active_lvl");
@@ -128,9 +130,10 @@ public class TestUtils {
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Dog nwDg = new Dog(id, name, gender, breed, akcRegistration,
-							 age,fixed, size, group, activityLvl, barkingAmt,
-							 coatType, coatLength, shedding, trainability);
+				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+					barkingAmt, coatType, coatLength, shedding, trainability);
+				Dog nwDg = new Dog(id, name, gender, akcRegistration,
+							 age, fixed, breed);
 				dogList.add(nwDg);
 			}
 		} 
@@ -147,7 +150,7 @@ public class TestUtils {
 				+ "	dog.id,"
 				+ "	dog.n_me AS dog_name,"
 				+ "	dog.gender,"
-				+ "	dog.breed,"
+				+ "	breed.breed_name AS breed,"
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
@@ -161,7 +164,7 @@ public class TestUtils {
 				+ "	breed.train"
 				+ "	FROM dog"
 				+ "	FULL OUTER JOIN breed"
-				+ " ON breed.breed_name = dog.breed"
+				+ " ON breed.id = dog.breed_id"
 				+ " WHERE breed.breed_size = ?"
 				+ " ORDER BY dog.id;";
 				
@@ -177,14 +180,13 @@ public class TestUtils {
 
 			while (rs.next()) 
 			{
-		
 				int id = rs.getInt("id");
 				String name = rs.getString("dog_name");
 				String gender = rs.getString("gender");
-				String breed = rs.getString("breed");
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
 				String activityLvl = rs.getString("active_lvl");
@@ -194,9 +196,10 @@ public class TestUtils {
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Dog nwDg = new Dog(id, name, gender, breed, akcRegistration,
-							 age,fixed, size, group, activityLvl, barkingAmt,
-							 coatType, coatLength, shedding, trainability);
+				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+					barkingAmt, coatType, coatLength, shedding, trainability);
+				Dog nwDg = new Dog(id, name, gender, akcRegistration,
+							 age, fixed, breed);
 				dogList.add(nwDg);
 			}
 		} 

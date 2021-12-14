@@ -6,7 +6,7 @@ import com.revature.models.Dog;
 
 public interface DogDao {
 	
-	List<Dog> getAllDogs(); //query DB and return a list of all Dogs in the DB
+	List<Dog> getAllDogs(); 
 	
 	List<Dog> getAllDogsWhereGenderIs(String dogGender);
 	
@@ -22,5 +22,4 @@ public interface DogDao {
 	
 	boolean deleteADog(int dogId);//delete
 	
-
 }
