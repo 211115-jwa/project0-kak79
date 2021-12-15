@@ -61,7 +61,7 @@ public class App
 						} 
 						catch (InvalidEntryException e) 
 						{
-							ctx.result("Dog Gender Must be Either m OR f!! \\n https://http.cat/400.jpg");
+							ctx.result("Dog Gender Must be Either m OR f!! \\n https://httpstatusdogs.com/img/400.jpg");
 						}
 						
 						
@@ -71,7 +71,7 @@ public class App
 					{
 						if (dogGender != "XS" || dogGender != "S" || dogGender != "M" || dogGender != "L" || dogGender != "XL") 
 						{
-							ctx.result("Dog Gender Must be Either XS, S, M, L or XL!! \n https://http.cat/400");
+							ctx.result("Dog Gender Must be Either XS, S, M, L or XL!! \n https://httpstatusdogs.com/img/400.jpg");
 						}
 						else 
 						{
@@ -106,11 +106,11 @@ public class App
 					if (newDog !=null) 
 					{
 						ds.createADog(newDog);
-						ctx.result("https://http.cat/201");
+						ctx.result("https://httpstatusdogs.com/img/201.jpg");
 					} 
 					else 
 					{
-						ctx.result("https://http.cat/400");
+						ctx.result("https://httpstatusdogs.com/img/400.jpg");
 					}
 				});
 
@@ -125,11 +125,11 @@ public class App
 							if (dog != null)
 								ctx.json(dog);
 							else
-								ctx.result("https://http.cat/404");
+								ctx.result("https://httpstatusdogs.com/img/404.jpg");
 						} 
 						catch (NumberFormatException e) 
 						{
-							ctx.result("Dog ID must be a numeric value \n https://http.cat/400");
+							ctx.result("Dog ID must be a numeric value \n https://httpstatusdogs.com/img/400.jpg");
 						}
 
 					});
@@ -146,16 +146,16 @@ public class App
 								if (dogToEdit != null)
 									ctx.json(dogToEdit);
 								else
-									ctx.result("https://http.cat/404");
+									ctx.result("https://httpstatusdogs.com/img/404.jpg");
 							} 
 							else 
 							{
-								ctx.result("https://http.cat/409");
+								ctx.result("https://httpstatusdogs.com/img/409.jpg");
 							}
 						}
 						catch (NumberFormatException e) 
 						{
-							ctx.result("Dog ID must be a numeric value \n https://http.cat/400");
+							ctx.result("Dog ID must be a numeric value \n https://httpstatusdogs.com/img/400.jpg");
 						}
 
 					});
