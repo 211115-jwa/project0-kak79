@@ -24,9 +24,6 @@ public class App
 
 	public static void main(String[] args) 
 	{
-		
-		
-//		DogPostgres dp = new DogPostgres();
 
 		Javalin app = Javalin.create().start(8080);
 		
