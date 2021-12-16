@@ -42,11 +42,8 @@ public class App
 					
 					if (dogGender != null && !"".equals(dogGender)) 
 					{
-						
-			
 						try 
 						{
-							
 							List<Dog> dog = ds.getAllDogsWhereGenderIs(dogGender);
 							
 								String dogList = "";
@@ -55,36 +52,33 @@ public class App
 								{
 									dogList += "<p>" + dg + "</p>";
 								}
-								ctx.result(dogList);
-							
-								
+								ctx.result(dogList);	
 						} 
 						catch (InvalidEntryException e) 
 						{
-							ctx.result("Dog Gender Must be Either m OR f!! \\n https://httpstatusdogs.com/img/400.jpg");
+							ctx.result("Dog Gender Must be Either m OR f!! \n"
+									+ "https://httpstatusdogs.com/img/400.jpg");
 						}
-						
-						
-						
 					}
 					else if (dogSize != null && !"".equals(dogSize))
 					{
-						if (dogGender != "XS" || dogGender != "S" || dogGender != "M" || dogGender != "L" || dogGender != "XL") 
+						try 
 						{
-							ctx.result("Dog Gender Must be Either XS, S, M, L or XL!! \n https://httpstatusdogs.com/img/400.jpg");
-						}
-						else 
-						{
-							List<Dog> dog = new ArrayList<>();
-							dog = dp.getAllDogsWhereSizeIs(dogSize);
-							String dogList = "";
+							List<Dog> dog = ds.getAllDogsWhereSizeIs(dogSize);
 							
-							for (Dog dg : dog) 
-							{
-								dogList += "<p>" + dg + "</p>";
-							}
-							ctx.result(dogList);
-						}
+								String dogList = "";
+								
+								for (Dog dg : dog) 
+								{
+									dogList += "<p>" + dg + "</p>";
+								}
+								ctx.result(dogList);	
+						} 
+						catch (InvalidEntryException e) 
+						{
+							ctx.result("Dog Size Must be Either XS, S, M, L or XL!! \n"
+									+ "https://httpstatusdogs.com/img/400.jpg");
+						}	
 					}
 					else 
 					{

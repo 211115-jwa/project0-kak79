@@ -11,7 +11,7 @@ public interface DogService {
 	
 	List<Dog> getAllDogsWhereGenderIs(String dogGender) throws InvalidEntryException;
 	
-	List<Dog> getAllDogsWhereSizeIs(String dogSize);
+	List<Dog> getAllDogsWhereSizeIs(String dogSize) throws InvalidEntryException;
 		
 	Dog getOneById(int dogId);
 	

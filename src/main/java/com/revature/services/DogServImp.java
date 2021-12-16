@@ -25,7 +25,9 @@ public class DogServImp implements DogService {
 	{
 		if (dogGender != "f" || dogGender != "m") 
 		{
-			throw new InvalidEntryException("Dog Gender Must be Either m OR f!! \n https://http.cat/400.jpg");
+			throw new InvalidEntryException(
+					"Dog Gender Must be Either m OR f!! \n"
+					+ "https://http.cat/400.jpg");
 		}
 		else 
 		{
@@ -37,9 +39,20 @@ public class DogServImp implements DogService {
 	}
 
 	@Override
-	public List<Dog> getAllDogsWhereSizeIs(String dogSize) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Dog> getAllDogsWhereSizeIs(String dogSize) throws InvalidEntryException
+	{
+		if (dogSize != "XS" || dogSize != "S" || dogSize != "M" || dogSize != "L" || dogSize != "XL") 
+		{
+			throw new InvalidEntryException(
+					"Dog Size Must be Either XS, S, M, L or XL!! \n"
+					+ "https://httpstatusdogs.com/img/400.jpg");
+		}
+		else 
+		{
+			List<Dog> dog = new ArrayList<>();
+			dog = dd.getAllDogsWhereSizeIs(dogSize);
+			return dog;
+		}
 	}
 
 	@Override
