@@ -30,13 +30,13 @@ public class DogServiceTest {
 	private static List<Dog> mockDogs = new ArrayList<>();
 	private static List<Breed> mockBreeds = new ArrayList<>();
 	
-	Breed testBreed = new Breed(1,"Akita", "L", "Working Group", "Regular Exercise", "When Necessary", "Double", "Medium", "Regularly", "Agreeable");
+	static Breed testBreed = new Breed(1,"Akita", "L", "Working Group", "Regular Exercise", "When Necessary", "Double", "Medium", "Regularly", "Agreeable");
 	
-	Dog testDog1 = new Dog(1, "Jack", "m", true, 1, false, testBreed);
-	Dog testDog2 = new Dog(1, "Jill", "f", true, 1, false, testBreed);
+	static Dog testDog1 = new Dog(1, "Jack", "m", true, 1, false, testBreed);
+	static Dog testDog2 = new Dog(1, "Jill", "f", true, 1, false, testBreed);
 	
 	@BeforeAll
-	public void mockDogsSetup() {
+	public static void mockDogsSetup() {
 		mockBreeds.add(testBreed);
 		mockDogs.add(testDog1);
 		mockDogs.add(testDog2);
@@ -44,13 +44,14 @@ public class DogServiceTest {
 	
 	@Test
 	public void getAllDogs() {
-		
 		when(dd.getAllDogs()).thenReturn(mockDogs);
 		List<Dog> actual = ds.getAllDogs();
-		
 		assertEquals(mockDogs, actual);
-		
 	}
+	
+	
+	
+	
 
 }
 
