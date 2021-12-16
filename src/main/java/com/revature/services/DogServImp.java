@@ -23,11 +23,12 @@ public class DogServImp implements DogService {
 	@Override
 	public List<Dog> getAllDogsWhereGenderIs(String dogGender) throws InvalidEntryException 
 	{
-		if (dogGender != "f" || dogGender != "m") 
+		if (!dogGender.equals("f") && !dogGender.equals("m")) 
 		{
+			
 			throw new InvalidEntryException(
 					"Dog Gender Must be Either m OR f!! \n"
-					+ "https://http.cat/400.jpg");
+					+ "https://httpstatusdogs.com/img/400.jpg");
 		}
 		else 
 		{
