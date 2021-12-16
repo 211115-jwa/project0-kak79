@@ -42,7 +42,7 @@ public class DogServImp implements DogService {
 	@Override
 	public List<Dog> getAllDogsWhereSizeIs(String dogSize) throws InvalidEntryException
 	{
-		if (dogSize != "XS" || dogSize != "S" || dogSize != "M" || dogSize != "L" || dogSize != "XL") 
+		if (!dogSize.equals("XS") && !dogSize.equals("S") && !dogSize.equals("M") && !dogSize.equals("L") && !dogSize.equals("XL")) 
 		{
 			throw new InvalidEntryException(
 					"Dog Size Must be Either XS, S, M, L or XL!! \n"
