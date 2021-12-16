@@ -16,7 +16,7 @@ public interface DogDao {
 	
 	int createADog(Dog dog); //make a Dog
 
-	Dog editADog(Dog dog); // update
+	void editADog(Dog dog); // update
 	
 	boolean deleteADog(int dogId);//delete
 	

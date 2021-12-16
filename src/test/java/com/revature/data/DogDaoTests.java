@@ -140,8 +140,17 @@ public class DogDaoTests
   		assertNotEquals(expected, actual);
 	}
 	
-	
-//	String name, String gender, String breed, boolean akcReg, int age, boolean fixed
+	@Test
+	public void testUpdate() {
+		Dog updatedDog = tu.selectOneById(13);
+		updatedDog.setName("Test");
+		tu.editADog(updatedDog);
+		String expected = updatedDog.getName();
+		Dog requestedDog = dd.getOneById(13);
+		String actual = requestedDog.getName();
+		assertEquals(expected, actual);
+			
+	}
 	
 	
 //	@Test

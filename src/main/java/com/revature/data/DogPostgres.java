@@ -28,6 +28,7 @@ public class DogPostgres implements DogDao
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
+				+ " breed.id AS breed_id,"
 				+ "	breed.breed_size,"
 				+ "	breed.breed_group,"
 				+ "	breed.active_lvl,"
@@ -56,6 +57,7 @@ public class DogPostgres implements DogDao
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				int brd_id = rs.getInt("breed_id");
 				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
@@ -66,7 +68,7 @@ public class DogPostgres implements DogDao
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+				Breed breed = new Breed(brd_id, brd_name, size, group, activityLvl, 
 					barkingAmt, coatType, coatLength, shedding, trainability);
 				Dog nwDg = new Dog(id, name, gender, akcRegistration,
 							 age, fixed, breed);
@@ -91,6 +93,7 @@ public class DogPostgres implements DogDao
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
+				+ " breed.id AS breed_id,"
 				+ "	breed.breed_size,"
 				+ "	breed.breed_group,"
 				+ "	breed.active_lvl,"
@@ -123,6 +126,7 @@ public class DogPostgres implements DogDao
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				int brd_id = rs.getInt("breed_id");
 				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
@@ -133,7 +137,7 @@ public class DogPostgres implements DogDao
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+				Breed breed = new Breed(brd_id, brd_name, size, group, activityLvl, 
 					barkingAmt, coatType, coatLength, shedding, trainability);
 				Dog nwDg = new Dog(id, name, gender, akcRegistration,
 							 age, fixed, breed);
@@ -158,6 +162,7 @@ public class DogPostgres implements DogDao
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
+				+ " breed.id AS breed_id,"
 				+ "	breed.breed_size,"
 				+ "	breed.breed_group,"
 				+ "	breed.active_lvl,"
@@ -190,6 +195,7 @@ public class DogPostgres implements DogDao
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				int brd_id = rs.getInt("breed_id");
 				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
@@ -200,7 +206,7 @@ public class DogPostgres implements DogDao
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+				Breed breed = new Breed(brd_id, brd_name, size, group, activityLvl, 
 					barkingAmt, coatType, coatLength, shedding, trainability);
 				Dog nwDg = new Dog(id, name, gender, akcRegistration,
 							 age, fixed, breed);
@@ -225,6 +231,7 @@ public class DogPostgres implements DogDao
 				+ "	dog.akc_reg,"
 				+ "	dog.ag_ AS dog_age,"
 				+ "	dog.fixed,"
+				+ " breed.id AS breed_id,"
 				+ "	breed.breed_size,"
 				+ "	breed.breed_group,"
 				+ "	breed.active_lvl,"
@@ -256,6 +263,7 @@ public class DogPostgres implements DogDao
 				boolean akcRegistration = rs.getBoolean("akc_reg");
 				int age = rs.getInt("dog_age");
 				boolean fixed = rs.getBoolean("fixed");
+				int brd_id = rs.getInt("breed_id");
 				String brd_name = rs.getString("breed");
 				String size = rs.getString("breed_size");
 				String group = rs.getString("breed_group");
@@ -266,7 +274,7 @@ public class DogPostgres implements DogDao
 				String shedding = rs.getString("shedd");
 				String trainability = rs.getString("train");
 				
-				Breed breed = new Breed(brd_name, size, group, activityLvl, 
+				Breed breed = new Breed(brd_id, brd_name, size, group, activityLvl, 
 					barkingAmt, coatType, coatLength, shedding, trainability);
 				dog = new Dog(id, name, gender, akcRegistration,
 							 age, fixed, breed);
@@ -297,7 +305,7 @@ public class DogPostgres implements DogDao
 
 			ps.setString(1, dog.getName());
 			ps.setString(2, dog.getGender());
-			ps.setInt(3,dog.getBreed().getId());
+			ps.setInt(3, dog.getBreed().getId());
 			ps.setBoolean(4, dog.isAkcReg());
 			ps.setInt(5, dog.getAge());
 			ps.setBoolean(6, dog.isFixed());
@@ -324,9 +332,45 @@ public class DogPostgres implements DogDao
 	}
 
 	@Override
-	public Dog editADog(Dog dog) {
-		// TODO Auto-generated method stub
-		return null;
+	public void editADog(Dog dog) {
+		String sql = "UPDATE dog SET"
+				+ " n_me = ?,"
+				+ " gender = ?,"
+				+ " breed_id = ?,"
+				+ " akc_reg = ?,"
+				+ " ag_ = ?,"
+				+ " fixed = ?"
+				+ " WHERE id = ?;";
+		
+		try (Connection con = cu.getConnection()) 
+		{
+			con.setAutoCommit(false);
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, dog.getName());
+			ps.setString(2, dog.getGender());
+			ps.setInt(3, dog.getBreed().getId());
+			ps.setBoolean(4, dog.isAkcReg());
+			ps.setInt(5, dog.getAge());
+			ps.setBoolean(6, dog.isFixed());
+			ps.setInt(7, dog.getId());
+
+			int rowsAffected = ps.executeUpdate();
+
+			if (rowsAffected==1) 
+			{ 
+				con.commit();
+			} 
+			else 
+			{
+				con.rollback();
+			}
+
+		} 
+		catch (SQLException d) 
+		{
+			d.printStackTrace();
+		}
 	}
 
 	@Override

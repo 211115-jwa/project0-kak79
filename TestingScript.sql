@@ -1,4 +1,15 @@
 
+update dog 
+set 
+ n_me = 'Jacki', 
+ gender = 'f', 
+ ag_ = 2, 
+ akc_reg = true , 
+ fixed = true , 
+ breed_id = 1    
+where id = 11
+returning *;
+
 
 insert into dog 
 	(n_me, gender, breed_id, akc_reg, ag_, fixed)
