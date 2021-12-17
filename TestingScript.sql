@@ -105,4 +105,10 @@ SELECT
 	FROM dog 
 	FULL OUTER JOIN breed 
     ON breed.id = dog.breed_id;
+   
+   
+   
+   select * from breed
+   
+   
       

@@ -8,7 +8,6 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.data.DogPostgres;
 import com.revature.exceptions.InvalidEntryException;
 import com.revature.models.Dog;
 import com.revature.services.DogServImp;
@@ -120,7 +119,8 @@ public class App
 						} 
 						catch (NumberFormatException e) 
 						{
-							ctx.result("Dog ID must be a numeric value \n https://httpstatusdogs.com/img/400.jpg");
+							ctx.result("Dog ID must be a numeric value \n"
+									+ "https://httpstatusdogs.com/img/400.jpg");
 						}
 
 					});
@@ -146,7 +146,8 @@ public class App
 						}
 						catch (NumberFormatException e) 
 						{
-							ctx.result("Dog ID must be a numeric value \n https://httpstatusdogs.com/img/400.jpg");
+							ctx.result("Dog ID must be a numeric value \n"
+									+ "https://httpstatusdogs.com/img/400.jpg");
 						}
 
 					});

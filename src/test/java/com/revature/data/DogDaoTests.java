@@ -153,10 +153,5 @@ public class DogDaoTests
 	}
 	
 	
-//	@Test
-//	public void getNoDogs() throws NoDogsFoundException 
-//	{
-//		assertThrows(NoDogsFoundException.class, () -> 
-//			bd.getAllDogs(), "Expected getAllDogs to have Dogs");
-//	}
+
 }
