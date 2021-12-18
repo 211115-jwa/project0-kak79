@@ -18,6 +18,4 @@ public interface DogDao {
 
 	void editADog(Dog dog); // update
 	
-	boolean deleteADog(int dogId);//delete
-	
 }

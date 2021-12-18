@@ -58,26 +58,23 @@ public class DogServImp implements DogService {
 
 	@Override
 	public Dog getOneById(int dogId) {
-		// TODO Auto-generated method stub
-		return null;
+		Dog dog = dd.getOneById(dogId);
+		return dog;
 	}
 
 	@Override
-	public int createADog(Dog dog) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createADog(Dog newDog) {
+		int newId = dd.createADog(newDog);
+		return newId;
 	}
 
 	@Override
 	public Dog editADog(Dog dog) {
-		// TODO Auto-generated method stub
-		return null;
+		dd.editADog(dog);
+		Dog editedDog = dd.getOneById(dog.getId());
+		return editedDog;
 	}
 
-	@Override
-	public boolean deleteADog(int dogId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }

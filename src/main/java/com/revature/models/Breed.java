@@ -48,6 +48,10 @@ public class Breed {
 		super();
 		this.id = id;
 	}
+	
+	public Breed() {
+		super();
+	}
 
 	public int getId() {
 		return id;

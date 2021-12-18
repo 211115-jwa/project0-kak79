@@ -142,11 +142,11 @@ public class DogDaoTests
 	
 	@Test
 	public void testUpdate() {
-		Dog updatedDog = tu.selectOneById(13);
+		Dog updatedDog = tu.selectOneById(11);
 		updatedDog.setName("Test");
 		tu.editADog(updatedDog);
 		String expected = updatedDog.getName();
-		Dog requestedDog = dd.getOneById(13);
+		Dog requestedDog = dd.getOneById(11);
 		String actual = requestedDog.getName();
 		assertEquals(expected, actual);
 			

@@ -19,6 +19,4 @@ public interface DogService {
 
 	Dog editADog(Dog dog); // update
 	
-	boolean deleteADog(int dogId);//delete
-	
 }

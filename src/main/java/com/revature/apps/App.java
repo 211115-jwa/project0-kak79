@@ -41,14 +41,7 @@ public class App
 						try 
 						{
 							List<Dog> dog = ds.getAllDogsWhereGenderIs(dogGender);
-							
-								String dogList = "";
-								
-								for (Dog dg : dog) 
-								{
-									dogList += "<p>" + dg + "</p>";
-								}
-								ctx.result(dogList);	
+								ctx.json(dog);	
 						} 
 						catch (InvalidEntryException e) 
 						{
@@ -61,14 +54,7 @@ public class App
 						try 
 						{
 							List<Dog> dog = ds.getAllDogsWhereSizeIs(dogSize);
-							
-								String dogList = "";
-								
-								for (Dog dg : dog) 
-								{
-									dogList += "<p>" + dg + "</p>";
-								}
-								ctx.result(dogList);	
+								ctx.json(dog);	
 						} 
 						catch (InvalidEntryException e) 
 						{
@@ -80,13 +66,7 @@ public class App
 					{
 						List<Dog> dog = new ArrayList<>();
 						dog = ds.getAllDogs();
-						String dogList = "";
-						
-						for (Dog dg : dog) 
-						{
-							dogList += "<p>" + dg + "</p>";
-						}
-						ctx.result(dogList);
+						ctx.json(dog);
 					}
 				});
 				
@@ -95,8 +75,8 @@ public class App
 					Dog newDog = ctx.bodyAsClass(Dog.class);
 					if (newDog !=null) 
 					{
-						ds.createADog(newDog);
-						ctx.result("https://httpstatusdogs.com/img/201.jpg");
+						int newId = ds.createADog(newDog);
+						ctx.result("New Dog's ID " + newId + "\nhttps://httpstatusdogs.com/img/201.jpg");
 					} 
 					else 
 					{

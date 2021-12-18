@@ -1,8 +1,10 @@
 package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.revature.data.DogDao;
@@ -133,15 +136,81 @@ public class DogServiceTest {
 	}	
 	
 	
+	@Test
+	public void addNewDogSuccessfully() {
+		Dog dog = new Dog();
+		when(dd.createADog(dog)).thenReturn(5);
+		int newId = ds.createADog(dog);
+		assertNotEquals(0, newId);
+	}
+
+	
+	@Test
+	public void createNewDogWrong() {
+		Dog dog = new Dog();
+		when(dd.createADog(dog)).thenReturn(0);
+		int newId = ds.createADog(dog);
+		assertEquals(0, newId);
+	}
+	
+
+	@Test
+	public void getDogByIdExists() {
+		Dog dog = new Dog();
+		dog.setId(2);
+		
+		when(dd.getOneById(2)).thenReturn(dog);
+		
+		Dog actualDog = ds.getOneById(2);
+		assertEquals(dog, actualDog);
+
+	}
 	
 	
+	@Test
+	public void getDogByIdNotExists() {
+		when(dd.getOneById(6)).thenReturn(null);
+		
+		Dog actualDog = ds.getOneById(6);
+		assertNull(actualDog);
+
+	}
 	
-//	@Test
-//	public void getNoDogs() throws NoDogsFoundException 
-//	{
-//		assertThrows(NoDogsFoundException.class, () -> 
-//			bd.getAllDogs(), "Expected getAllDogs to have Dogs");
-//	}	
+	
+	@Test
+	public void updateDogSuccessful() {
+		Dog editedDog = new Dog();
+		editedDog.setId(2);
+		editedDog.setAge(3);
+		
+		when(dd.getOneById(2)).thenReturn(editedDog);
+		doNothing().when(dd).editADog(Mockito.any(Dog.class));
+		
+		Dog actualDog = ds.editADog(editedDog);
+		
+		assertEquals(editedDog, actualDog);
+
+	}
+	
+	
+	@Test
+	public void updateDogSomethingWrong() {
+		Dog mockDog = new Dog();
+		mockDog.setId(2);
+		
+		when(dd.getOneById(2)).thenReturn(mockDog);
+		doNothing().when(dd).editADog(Mockito.any(Dog.class));
+		
+		Dog editedDog = new Dog();
+		editedDog.setId(2);
+		editedDog.setAge(4);
+		
+		Dog actualDog = ds.editADog(editedDog);
+		
+		assertNotEquals(editedDog, actualDog);
+
+	}
+	
 	
 
 }

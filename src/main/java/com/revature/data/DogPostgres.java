@@ -373,10 +373,4 @@ public class DogPostgres implements DogDao
 		}
 	}
 
-	@Override
-	public boolean deleteADog(int dogId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
